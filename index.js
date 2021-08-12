@@ -35,7 +35,7 @@ const ExpressError = require('./utils/ExpressError');
 
 
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 // const dbUrl = 'mongodb://localhost:27017/Roadmap-Creator';
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/Roadmap-Creator'
 const clientID = process.env.CLIENTID;
