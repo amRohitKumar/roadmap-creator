@@ -20,7 +20,7 @@ const User = require('./models/user');
 
 
 const userRoutes = require('./routes/user');
-
+const roadmapRoutes = require('./routes/roadmap');
 
 
 
@@ -142,6 +142,7 @@ app.use((req, res, next) => {
 
 
 app.use('/', userRoutes);
+app.use('/', roadmapRoutes);
 
 app.get('/', (req, res) => {
     res.render('homePage');

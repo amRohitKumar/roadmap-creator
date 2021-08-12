@@ -1,0 +1,9 @@
+                    USER ROUTES
+/login => login 
+/register => to register
+/logout => to logout
+
+                PRESONAL ROADMAP ROUTES
+/ => HOME PAGE
+/<id> => USER HOME PAGE
+/<ID>/<ID> => USER ROADMAP
