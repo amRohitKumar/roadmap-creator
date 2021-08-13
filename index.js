@@ -14,14 +14,14 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-
+const localStrategy = require('passport-local');
 
 const User = require('./models/user');
 
 
 const userRoutes = require('./routes/user');
 const roadmapRoutes = require('./routes/roadmap');
-
+const sectionRoutes = require('./routes/section');
 
 
 const ExpressError = require('./utils/ExpressError');
@@ -36,8 +36,8 @@ const ExpressError = require('./utils/ExpressError');
 
 
 const PORT = process.env.PORT || 8080;
-// const dbUrl = 'mongodb://localhost:27017/Roadmap-Creator';
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/Roadmap-Creator'
+const dbUrl = 'mongodb://localhost:27017/Roadmap-Creator';
+// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/Roadmap-Creator'
 const clientID = process.env.CLIENTID;
 const clientSecret = process.env.CLIENTSECRET;
 const SECRET = process.env.SECRET || 'thisisasecret';
@@ -91,6 +91,10 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -143,6 +147,7 @@ app.use((req, res, next) => {
 
 app.use('/', userRoutes);
 app.use('/', roadmapRoutes);
+app.use('/', sectionRoutes);
 
 app.get('/', (req, res) => {
     res.render('homePage');

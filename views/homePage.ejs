@@ -19,14 +19,13 @@
                 <h3 class="float-md-left mb-0">College-Quora</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-right mt-2">
                     <% if(!currentUser) { %>
-                        <a class="nav-link" href="/">Questions</a>
                         <a class="nav-link" href="/login">Login</a>
                         <a class="nav-link" href="/register">Register</a>
-                        <% } else { %>
-                            <a class="nav-link" href="/">Home</a>
-                            <a class="nav-link" href="/">All Questions</a>
-                            <a class="nav-link" href="/logout">Logout</a>
-                        <% } %>
+                    <% } else { %>
+                        <!-- <a class="nav-link" href="/">Home</a> -->
+                        <a class="nav-link" href="/<%= currentUser._id %>">Roadmaps</a>
+                        <a class="nav-link" href="/logout">Logout</a>
+                    <% } %>
                 </nav>
             </div>
         </header>  

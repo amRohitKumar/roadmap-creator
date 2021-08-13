@@ -1,0 +1,73 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-center mt-4 mb-3">
+       <h1 style="text-align: center;"> <%= reqRoadmap.title %> </h1> 
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center;">
+    <a class="btn btn-outline-dark" href="" role="button" style="text-transform:none" data-bs-toggle="modal" data-bs-target="#createSection">
+        <i class="bi bi-folder-plus"></i> &nbsp Add a section
+    </a>
+</div>
+
+<div class="modal fade" id="createSection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Add a section: </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form action="/<%= reqRoadmap._id %>/newsection" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+              <label class="form-label" for="topic">Heading : </label>
+              <input id="heading" class="form-control" placeholder="Section heading ..." name="heading" required>
+              <div class="valid-feedback">
+                Looks Good !
+              </div>
+              <div class="invalid-feedback">
+                Please enter a valid heading.
+              </div>
+            </div>
+            <div class="input-group mb-3">
+                <input id="duration" type="number" class="form-control" placeholder="Duration (weeks)" aria-label="duration" min="0" name="duration">
+                <span class="input-group-text">Weeks</span>
+            </div>
+            <div class="modal-footer container d-flex justify-content-center align-items-center">
+              <button class="btn btn-success ">Add</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<% if(reqRoadmap.section.length === 0){ %> 
+    <div class="container alert-class">
+        <div class="alert alert-warning d-flex align-items-center mt-3 " role="alert" >
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div style="width: 100%;">
+              No section found. Click on button to add a new section.
+            </div>
+        </div>
+    </div>
+<% }else{ %> 
+    <div class="container mt-3 col-8 offset-2 ">
+        <% reqRoadmap.section.forEach((section, i) => { %>
+            <div class="container section-class my-2" onclick="location.href='/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
+                <div id="sectionCount" class="rounded-3" >
+                        <%= i+1 %>
+                </div>
+                <div id="sectioninfo">
+                    <%= section.heading %>
+                </div>
+                <div id="sectionoption">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </div>
+            </div>
+        <% }) %> 
+    </div>
+<% } %> 

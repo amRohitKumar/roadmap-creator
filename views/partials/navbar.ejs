@@ -9,8 +9,12 @@
               <% if(currentUser){ %> 
                 <div class="navbar-links active navbar-nav my-1">
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
-                  <a class="nav-link" aria-current="page" href="#">All Questions</a>
-                  <a class="nav-link" aria-current="page" href="#">Profile</a>
+                  <a class="nav-link" aria-current="page" href="/<%= currentUser._id %>">All Roadmaps</a>
+                </div>
+                <div class="navbar-links active navbar-nav" style="margin-left: auto;">
+                  <a class="nav-link active" type="button" data-bs-toggle="modal" data-bs-target="#create">Add Roadmap</a>
+                  <a class="nav-link active" type="button" data-bs-toggle="modal" data-bs-target="#create">Join Roadmap</a>
+                  <a class="nav-link active btn btn-sm btn-secondary" href="/logout" type="button">Logout</a>
                 </div>
               <% }else{ %> 
                   <div class="navbar-nav">
@@ -19,9 +23,6 @@
                     <a class="nav-link active" href="/login">Sign-In</a>
                   </div>
               <% } %>
-              <div class="navbar-links active navbar-nav" style="margin-left: auto;">
-                <a class="nav-link active" href="" type="button" data-bs-toggle="modal" data-bs-target="#create">Add Roadmap</a>
-              </div>
         </div>
     </div>
 </nav>
