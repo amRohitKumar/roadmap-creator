@@ -19,13 +19,13 @@ router.get("/login/google/redirect", passport.authenticate('google', {failureRed
     let userId = req.user._id;
     const name = req.user.name;
     req.flash('success', `Welcome to Roadmap-Creator ${name}`)
-    res.redirect(`/${userId}`);
+    res.redirect(`/private`);
 });
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), catchAsync(async (req, res) => {
 
     req.flash('success', `Welcome back ${req.user.name}!`);
-    res.redirect(`/${req.user._id}`);
+    res.redirect(`/private`);
 }))
 
 router.post('/register', catchAsync(async (req, res) => {
@@ -36,7 +36,7 @@ router.post('/register', catchAsync(async (req, res) => {
         req.login(registerdUser, err => {
             if(err) return next(err);
             req.flash('success', `Welcome to College-Quora ${req.user.name}!`);
-            res.redirect(`/${registerdUser._id}`);
+            res.redirect(`/private`);
         })
     } catch (err) {
         req.flash('error', err.message);

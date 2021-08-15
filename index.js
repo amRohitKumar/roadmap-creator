@@ -28,18 +28,9 @@ const subSectionRoutes = require('./routes/subsection');
 
 const ExpressError = require('./utils/ExpressError');
 
-
-
-
-
-
-
-
-
-
 const PORT = process.env.PORT || 8080;
-const dbUrl = 'mongodb://localhost:27017/Roadmap-Creator';
-// const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/Roadmap-Creator'
+// const dbUrl = 'mongodb://localhost:27017/Roadmap-Creator';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/Roadmap-Creator'
 const clientID = process.env.CLIENTID;
 const clientSecret = process.env.CLIENTSECRET;
 const SECRET = process.env.SECRET || 'thisisasecret';
@@ -142,7 +133,7 @@ app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
-    res.locals.url = req.url;
+    // res.locals.url = req.url;
     // console.log(req.url, req.originalUrl);
     
     next();
