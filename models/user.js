@@ -15,6 +15,12 @@ const UserSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Roadmap'
         }
+    ],
+    publicroadmaps : [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Publicroadmap'
+        }
     ]
 })
 

@@ -20,7 +20,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form action="/private/<%= reqRoadmap._id %>/newsection" method="POST" novalidate class="validated-form">
+        <form action="/public/<%= reqRoadmap._id %>/newsection" method="POST" novalidate class="validated-form">
             <div class="mb-3">
               <label class="form-label" for="topic">Heading : </label>
               <input id="heading" class="form-control" placeholder="Section heading ..." name="heading" required>
@@ -50,14 +50,14 @@
         <div class="alert alert-warning d-flex align-items-center mt-3 " role="alert" >
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
             <div style="width: 100%;">
-              No section found. Click on button to add a new section.
+              No public section found. Click on button to add a new section.
             </div>
         </div>
     </div>
 <% }else{ %> 
     <div class="container mt-3 col-8 offset-2 ">
         <% reqRoadmap.section.forEach((section, i) => { %>
-            <div class="container section-class my-2" onclick="location.href='/private/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
+            <div class="container section-class my-2" onclick="location.href='/public/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
                 <div id="sectionCount" class="rounded-3" >
                         <%= i+1 %>
                 </div>

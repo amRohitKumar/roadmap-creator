@@ -1,14 +1,14 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createPrivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Create Roadmap</h4>
+        <h4 class="modal-title" id="exampleModalLabel">Create Private Roadmap</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/<%=currentUser._id%>/create" method="POST" novalidate class="validated-form">
+        <form action="/private" method="POST" novalidate class="validated-form">
           <div class="mb-3">
             <label class="form-label" for="topic">Title : </label>
             <input id="topic" class="form-control" placeholder="Roadmap title ..." name="title" required>
@@ -34,18 +34,18 @@
 </div>
 
 <div class="container mt-3">
-  <% if(reqUser.roadmaps.lenght === 0){ %>
+  <% if(reqUser.roadmaps.length === 0){ %>
     <div class="alert alert-warning d-flex align-items-center" role="alert">
       <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
       <div>
-        No Roadmap exist. Add roadmap to create a new roadmap.
+        No Private Roadmap exist. Add roadmap to create a new roadmap.
       </div>
     </div>
   <% }else{ %> 
     <div class="mt-5">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4" >
+      <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 " >
         <% for(let roadmap of reqUser.roadmaps){ %> 
-        <div class="col roadmapDiv" style="padding:0" onclick="location.href='/<%=reqUser._id%>/rp/<%=roadmap._id%>'">
+        <div class="col roadmapDiv my-2" style="padding:0" onclick="location.href='/privaterp/<%=roadmap._id%>'">
           <div class="roadmapInnerDiv">
             <span class="roadDivTitle">
               <%= roadmap.title %> 

@@ -1,0 +1,116 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- MODAL TO CREATE NEW PUBLIC ROADMAP  -->
+<div class="modal fade" id="createPublic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Create Public Roadmap</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/public" method="POST" novalidate class="validated-form">
+          <div class="mb-3">
+            <label class="form-label" for="topic">Title : </label>
+            <input id="topic" class="form-control" placeholder="Roadmap title ..." name="title" required>
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please enter a valid title.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="topic">Password : </label>
+            <input type="password" id="password" class="form-control" placeholder="Password ..." name="password" required>
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please enter a valid password.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="description">Description : </label>
+            <input id="description" class="form-control" placeholder="Roadmap description (Optional)" name="description">
+          </div>
+          <div class="modal-footer container d-flex justify-content-center align-items-center">
+            <button class="btn btn-success ">Submit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL TO JOIN PUBLIC ROADMAP  -->
+<div class="modal fade" id="joinPublic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Join Public Roadmap</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/join/public" method="POST" novalidate class="validated-form">
+          <div class="mb-3">
+            <label class="form-label" for="uniqueId">Unique Id of roadmap : </label>
+            <input id="uniqueId" class="form-control" placeholder="Unique Id ..." name="uniqueId" required>
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please enter a valid Id.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="topic">Password : </label>
+            <input type="password" id="password" class="form-control" placeholder="Password ..." name="password" required>
+            <div class="valid-feedback">
+              Looks Good !
+            </div>
+            <div class="invalid-feedback">
+              Please enter a valid password.
+            </div>
+          </div>
+          <div class="modal-footer container d-flex justify-content-center align-items-center">
+            <button class="btn btn-success ">Submit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt-3">
+  <% if(reqUser.publicroadmaps.length === 0){ %>
+    <div class="alert alert-warning d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div>
+        No Public Roadmap exist. Add roadmap to create a new roadmap.
+      </div>
+    </div>
+  <% }else{ %> 
+    <div class="mt-5">
+      <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 " >
+        <% for(let roadmap of reqUser.publicroadmaps){ %> 
+        <div class="col roadmapDiv my-2" style="padding:0" onclick="location.href='/publicrp/<%=roadmap._id%>'">
+          <div class="roadmapInnerDiv">
+            <span class="roadDivTitle">
+              <%= roadmap.title %> 
+            </span>
+            <span class="roaDivAuthor" >
+              Authro : <%= roadmap.authorName %> 
+            </span>
+          </div>
+          <p> <%= roadmap.description %> </p>
+        </div>
+        <% } %> 
+      </div>
+    </div>
+  <% } %> 
+</div>

@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 
 const subSectionSchema = new Schema({
     heading : String,
-    status: Boolean
+    linkText: String,
+    status: Boolean,
+    userId: String,
+    copmpletedCount: Number,
+    totalUserCount: Number
 })
 
 const Subsection = mongoose.model('Subsection', subSectionSchema);

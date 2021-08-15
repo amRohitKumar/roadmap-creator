@@ -17,11 +17,13 @@ const MongoStore = require('connect-mongo');
 const localStrategy = require('passport-local');
 
 const User = require('./models/user');
+const Subsection = require('./models/subsection');
 
 
 const userRoutes = require('./routes/user');
 const roadmapRoutes = require('./routes/roadmap');
 const sectionRoutes = require('./routes/section');
+const subSectionRoutes = require('./routes/subsection');
 
 
 const ExpressError = require('./utils/ExpressError');
@@ -140,6 +142,9 @@ app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
+    res.locals.url = req.url;
+    // console.log(req.url, req.originalUrl);
+    
     next();
 })
 
@@ -148,6 +153,8 @@ app.use((req, res, next) => {
 app.use('/', userRoutes);
 app.use('/', roadmapRoutes);
 app.use('/', sectionRoutes);
+app.use('/', subSectionRoutes);
+
 
 app.get('/', (req, res) => {
     res.render('homePage');

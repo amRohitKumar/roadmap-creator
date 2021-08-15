@@ -1,3 +1,9 @@
+
+.mainContainer{
+    display: flex;
+    justify-content: space-around;
+}
+
 .roadmapDiv{
     display: flex;
     flex-direction: column;
@@ -89,4 +95,17 @@
     justify-content: flex-end;
     height: 100%;
     width: 5%;
+}
+
+@media (min-width: 575px){
+    .row-cols-sm-3>* {
+        flex: 0 0 auto;
+        width: 43.333333%;
+    }
+}
+@media (min-width: 768px){
+    .row-cols-md-4>* {
+        flex: 0 0 auto;
+        width: 28%;
+    }
 }
