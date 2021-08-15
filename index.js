@@ -120,6 +120,7 @@ passport.use(
                         googleId: profile.id,
                         name: displayName,
                         emailId: emailId,
+                        username: emailId,
                     });
                     await registeredUser.save();
                     await done(null, registeredUser);

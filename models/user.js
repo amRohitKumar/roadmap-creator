@@ -6,11 +6,7 @@ const UserSchema = new Schema({
     name: String,
     googleId: String,
     username: String,
-    emailId : {
-        type: String,
-        require: true,
-        // unique: true,
-    },
+    emailId : String,
     roadmaps : [
         {
             type: Schema.Types.ObjectId,
