@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     emailId : {
         type: String,
         require: true,
-        unique: true,
+        // unique: true,
     },
     roadmaps : [
         {
