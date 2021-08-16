@@ -26,9 +26,8 @@ router.get('/public/:roadmapId/subsection/:sectionId', isLoggedIn, catchAsync(as
 router.post('/private/:roadmapId/subsection/:sectionId/add', isLoggedIn, catchAsync(async (req, res) => {
     const {roadmapId , sectionId} = req.params;
     const reqSection = await Section.findById(sectionId);
-    const {subsection, linktext} = req.body;
-    const userId = req.user._id;
-    const newSubsection = new Subsection({heading: subsection, status: false, linkText: linktext, author: req.user});
+    const {heading, link = 'NOLINK'} = req.body;
+    const newSubsection = new Subsection({heading: heading, status: false, author: req.user, link: link});
     await newSubsection.save();
     reqSection.subsections.push(newSubsection);
     await reqSection.save();
@@ -39,14 +38,27 @@ router.post('/private/:roadmapId/subsection/:sectionId/add', isLoggedIn, catchAs
 router.post('/public/:roadmapId/subsection/:sectionId/add', isLoggedIn, roadmapAuthor, catchAsync(async (req, res) => {
     const {roadmapId , sectionId} = req.params;
     const reqSection = await Publicsection.findById(sectionId);
-    const {subsection, linktext} = req.body;
-    const userId = req.user._id;
-    const newSubsection = new Publicsubsection({heading: subsection, linkText: linktext, completedCount: 0, totalUserCount: 0, author: req.user});
+    const {heading, link = 'NOLINK'} = req.body;
+    const newSubsection = new Publicsubsection({heading: heading, completedCount: 0, totalUserCount: 0, author: req.user, link: link});
     await newSubsection.save();
     reqSection.subsections.push(newSubsection);
     await reqSection.save();
     req.flash('success', 'Created new subsection !');
     res.redirect(`/public/${roadmapId}/subsection/${sectionId}`);
+}))
+
+router.put('/public/:roadmapId/:sectionId/:subsectionId/edit', isLoggedIn, roadmapAuthor, catchAsync( async (req, res) => {
+    const {roadmapId, sectionId, subsectionId} = req.params;
+    const {heading, link} = req.body;
+    const updatedSubsection = await Publicsubsection.findByIdAndUpdate(subsectionId, {heading: heading, link: link});
+    res.redirect(`/public/${roadmapId}/subsection/${sectionId}`);
+}))
+
+router.put('/private/:roadmapId/:sectionId/:subsectionId/edit', isLoggedIn, catchAsync( async (req, res) => {
+    const {roadmapId, sectionId, subsectionId} = req.params;
+    const {heading, link} = req.body;
+    const updatedSubsection = await Subsection.findByIdAndUpdate(subsectionId, {heading: heading, link: link});
+    res.redirect(`/private/${roadmapId}/subsection/${sectionId}`);
 }))
 
 router.delete('/private/:roadmapId/:sectionId/:subsectionId/delete', isLoggedIn ,catchAsync(async (req, res) => {

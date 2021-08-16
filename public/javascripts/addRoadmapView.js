@@ -9,7 +9,6 @@ console.log(window.location.pathname)
 console.log(currLink);
 if(currLink === '/public'){
     addPrivate.classList.add('hideClass');
-    addPublic.classList.remove('hideClass');
     joinPublic.classList.remove('hideClass');
     viewPublic.classList.add('active');
     viewPrivate.classList.remove('active');
@@ -22,15 +21,3 @@ else if(currLink === '/private'){
     viewPrivate.classList.add('active');
 }
 
-// viewPrivate.addEventListener('mouseenter',   function(){
-//     this.classList.add('active');
-// })
-// viewPrivate.addEventListener('mouseleave',   function(){
-//     this.classList.remove('active');
-// })
-// viewPublic.addEventListener('mouseenter',   function(){
-//     this.classList.add('active');
-// })
-// viewPublic.addEventListener('mouseleave',   function(){
-//     this.classList.remove('active');
-// })

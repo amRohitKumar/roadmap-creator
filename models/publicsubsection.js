@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const publicSubSectionSchema = new Schema({
     heading : String,
-    linkText: String,
+    link: String,
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'

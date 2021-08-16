@@ -36,7 +36,7 @@
         <form action="/public/<%=roadmapId%>/subsection/<%= reqSection._id%>/add" method="POST" novalidate class="validated-form">
             <div class="mb-3">
               <label class="form-label" for="subsection">Add Text : </label>
-              <input id="subsection" class="form-control" placeholder="Add subsection ..." name="subsection" required>
+              <input id="subsection" class="form-control" placeholder="Add subsection ..." name="heading" required>
               <div class="valid-feedback">
                 Looks Good !
               </div>
@@ -62,7 +62,7 @@
         <form action="/public/<%=roadmapId%>/subsection/<%= reqSection._id%>/add" method="POST" novalidate class="validated-form">
             <div class="mb-3">
               <label class="form-label" for="topic">Link Text : </label>
-              <input type="text" id="textLink" class="form-control" placeholder="Link Text ..." name="linktext" required>
+              <input type="text" id="textLink" class="form-control" placeholder="Link Text ..." name="heading" required>
               <div class="valid-feedback">
                 Looks Good !
               </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label" for="topic">Add Link : </label>
-              <input type="url" id="newLink" class="form-control" placeholder="https://example.com" name="subsection" pattern="https://.*" required>
+              <input type="url" id="newLink" class="form-control" placeholder="https://example.com" name="link" pattern="https://.*" required>
               <div class="valid-feedback">
                 Looks Good !
               </div>
@@ -108,8 +108,8 @@
                     <%= i+1 %>
                 </div>
                 <div id="sectioninfo">
-                    <% if(subsection.linkText){ %> 
-                      <a href="<%=subsection.heading%>" target="_blank" >   <%= (subsection.linkText)?subsection.linkText:subsection.heading %>    </a>
+                    <% if(subsection.link !== 'NOLINK'){ %> 
+                      <a href="<%=subsection.link%>" target="_blank" > <%= subsection.heading %> </a>
                     <% }else{ %>
                     <%= subsection.heading %>
                     <% } %> 
@@ -120,7 +120,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li>
-                      <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"data-bs-target="#">
+                      <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"data-bs-target="#_<%=subsection._id%>editss">
                           Edit
                       </button>
                   </li>
@@ -131,6 +131,36 @@
                       </form>
                   </li>
                 </ul>
+
+                <!-- EDIT SUBSECTION MODAL -->
+                <div class="modal fade" id="_<%=subsection._id%>editss" tabindex="-1" aria-labelledby="textModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                      <form action="/public/<%= roadmapId %>/<%=reqSection._id%>/<%=subsection._id%>/edit?_method=PUT" method="POST" novalidate class="validated-form">
+                          <div class="mb-3">
+                            <label class="form-label" for="editText">Edit Text/Lik : </label>
+                            <input id="editText" class="form-control" placeholder="Text/LinkText ..." name="heading" required value="<%=subsection.heading%>">
+                            <div class="valid-feedback">
+                              Looks Good !
+                            </div>
+                            <div class="invalid-feedback">
+                              Please enter a valid Text/LinkText.
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label" for="link">Edit Text/Lik : </label>
+                            <input id="link" class="form-control" placeholder="https://example.com (IGNORE IF SUBSECTION IS NOT A LINK) ..." name="link" value="<%=subsection.link%>">
+                          </div>
+                          <div class="modal-footer container d-flex justify-content-center align-items-center">
+                            <button class="btn btn-success ">Done</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <% } %> 
             </div>
         <% }) %> 
