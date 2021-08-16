@@ -33,6 +33,20 @@ router.post('/public/:roadmapId/newsection', isLoggedIn, roadmapAuthor, catchAsy
     res.redirect(`/publicrp/${roadmapId}`);
 }))
 
+router.put('/private/:roadmapId/:sectionId/edit', isLoggedIn, catchAsync( async (req, res) => {
+    const {roadmapId, sectionId} = req.params;
+    const {heading, duration} = req.body;
+    const updatedSection = await Section.findByIdAndUpdate(sectionId, {heading: heading, duration: duration});
+    res.redirect(`/privaterp/${roadmapId}`);
+}))
+
+router.put('/public/:roadmapId/:sectionId/edit', isLoggedIn, roadmapAuthor,catchAsync( async (req, res) => {
+    const {roadmapId, sectionId} = req.params;
+    const {heading, duration} = req.body;
+    const updatedSection = await Publicsection.findByIdAndUpdate(sectionId, {heading: heading, duration: duration});
+    res.redirect(`/publicrp/${roadmapId}`);
+}))
+
 router.delete('/private/:roadmapId/:sectionId/delete', isLoggedIn ,catchAsync( async (req, res) => {
     const {roadmapId, sectionId} = req.params;
     const reqSection = await Section.findByIdAndRemove(sectionId, catchAsync(async (err) => {

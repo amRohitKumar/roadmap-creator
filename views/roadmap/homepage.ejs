@@ -45,14 +45,75 @@
     <div class="mt-5">
       <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 " >
         <% for(let roadmap of reqUser.roadmaps){ %> 
-        <div class="col roadmapDiv my-2" style="padding:0" onclick="location.href='/privaterp/<%=roadmap._id%>'">
+        <div class="col roadmapDiv my-2" style="padding:0">
           <div class="roadmapInnerDiv">
-            <span class="roadDivTitle">
-              <%= roadmap.title %> 
-            </span>
-            <span class="roaDivAuthor" >
-              <%= roadmap.authorName %> 
-            </span>
+            <div id="roadmapInnerInfoDiv" onclick="location.href='/privaterp/<%=roadmap._id%>'">
+              <span class="roadDivTitle">
+                <%= roadmap.title %> 
+              </span>
+              <span class="roaDivAuthor" >
+                Authror : <%= roadmap.authorName %> 
+              </span>
+            </div>
+            <button class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a type="button" class="btn btn-white btn-sm">
+                  Leave 
+                </a>
+              </li>
+              <% if((roadmap.author).toString() == currentUser._id){ %> 
+                <li>
+                  <a type="button" class="btn btn-white btn-sm"data-bs-toggle="modal" data-bs-target="#_<%=roadmap._id%>editrp">
+                      Edit
+                  </a>
+                </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form action="/public/<%=roadmap._id%>/delete?_method=DELETE" method="POST">
+                    <button class="btn btn-white btn-sm">Delete</button>
+                </form>
+              </li>
+              <% } %> 
+            </ul>
+
+            <!-- MODAL TO UPDATE ROADMAP -->
+            <div class="modal fade" id="_<%=roadmap._id%>editrp" tabindex="-1" aria-labelledby="sectionEditModal" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-body">
+                  <form action="/private/<%=roadmap._id%>/edit?_method=PUT" method="POST" novalidate class="validated-form">
+                      <div class="mb-3">
+                        <label class="form-label" for="editHeading">Title : </label>
+                        <input id="editTitle" class="form-control" placeholder="Title ..." name="title" required value="<%=roadmap.title%>">
+                        <div class="valid-feedback">
+                          Looks Good !
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a valid Title.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="editDuration">Description : </label>
+                        <input id="editDescription" class="form-control" name="description" value="<%=roadmap.description%>" required>
+                        <div class="valid-feedback">
+                          Looks Good !
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a valid Description.
+                        </div>
+                      </div>
+                      <div class="modal-footer container d-flex justify-content-center align-items-center">
+                        <button class="btn btn-success ">Done</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <p> <%= roadmap.description %> </p>
         </div>
