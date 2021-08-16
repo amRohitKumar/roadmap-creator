@@ -57,16 +57,29 @@
 <% }else{ %> 
     <div class="container mt-3 col-8 offset-2 ">
         <% reqRoadmap.section.forEach((section, i) => { %>
-            <div class="container section-class my-2" onclick="location.href='/private/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
+            <div class="container section-class my-2" >
                 <div id="sectionCount" class="rounded-3" >
                         <%= i+1 %>
                 </div>
-                <div id="sectioninfo">
+                <div id="sectioninfo" onclick="location.href='/private/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
                     <%= section.heading %>
                 </div>
-                <div id="sectionoption">
+                <button id="sectionoption" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>
-                </div>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <button type="button" class="btn btn-white btn-sm   "data-bs-toggle="modal"data-bs-target="#">
+                        Edit
+                    </button>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form action="/private/<%= reqRoadmap._id %>/<%=section._id%>/delete?_method=DELETE" method="POST">
+                        <button class="btn btn-white btn-sm">Delete</button>
+                    </form>
+                  </li>
+                </ul>
             </div>
         <% }) %> 
     </div>

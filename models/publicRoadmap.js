@@ -13,7 +13,7 @@ const publicRoadmapSchema = new Schema({
     section: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Section'
+            ref: 'Publicsection'
         }
     ],
     participants : [

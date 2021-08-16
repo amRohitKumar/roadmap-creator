@@ -5,8 +5,10 @@ const Roadmap = require('../models/roadmap');
 const Publicroadmap = require('../models/publicRoadmap');
 const {DateAndMonth} = require('../utils/helperFunction');
 const catchAsync = require('../utils/catchAsync');
+const {isLoggedIn, roadmapAuthor} = require('../utils/middleware');
 
-router.get('/private', catchAsync(async (req, res) => {
+
+router.get('/private', isLoggedIn ,catchAsync(async (req, res) => {
     const userId = req.user._id;
     const reqUser = await User.findById(userId).populate({
         path: 'roadmaps',
@@ -19,7 +21,7 @@ router.get('/private', catchAsync(async (req, res) => {
     res.render('roadmap/homepage', {reqUser});
 }))
 
-router.get('/public', catchAsync( async (req, res) => {
+router.get('/public', isLoggedIn, catchAsync( async (req, res) => {
     const userId = req.user._id;
     const reqUser = await User.findById(userId).populate({
         path: 'publicroadmaps',
@@ -33,7 +35,7 @@ router.get('/public', catchAsync( async (req, res) => {
     res.render('roadmap/publicRoadmap', {reqUser});
 }))
 
-router.post('/private', catchAsync(async (req, res) => {
+router.post('/private', isLoggedIn, catchAsync(async (req, res) => {
     const {title, description} = req.body;
     const userId = req.user._id;
     const author = req.user.name;
@@ -47,7 +49,7 @@ router.post('/private', catchAsync(async (req, res) => {
     res.redirect(`/private`);
 }))
 
-router.post('/public', catchAsync(async (req, res) => {
+router.post('/public', isLoggedIn, catchAsync(async (req, res) => {
     const {title, password, description} = req.body;
     const userId = req.user._id;
     const author = req.user.name;
@@ -61,7 +63,7 @@ router.post('/public', catchAsync(async (req, res) => {
     res.redirect(`/public`);
 }))
 
-router.post('/join/public', catchAsync(async (req, res) => {
+router.post('/join/public', isLoggedIn, catchAsync(async (req, res) => {
     console.log('hi');
     const userId = req.user._id;
     const {uniqueId, password} = req.body;
@@ -93,7 +95,7 @@ router.post('/join/public', catchAsync(async (req, res) => {
 
 }))
 
-router.get('/privaterp/:roadmapId', catchAsync(async (req, res) => {
+router.get('/privaterp/:roadmapId', isLoggedIn, catchAsync(async (req, res) => {
     // res.send("you got me");
     const {roadmapId} = req.params;
     const reqRoadmap = await Roadmap.findById(roadmapId).populate({
@@ -102,7 +104,7 @@ router.get('/privaterp/:roadmapId', catchAsync(async (req, res) => {
     res.render('roadmap/show', {reqRoadmap});
 }))
 
-router.get('/publicrp/:roadmapId', catchAsync(async (req, res) => {
+router.get('/publicrp/:roadmapId', isLoggedIn, catchAsync(async (req, res) => {
     const {roadmapId} = req.params;
     const reqRoadmap = await Publicroadmap.findById(roadmapId).populate({
         path: 'section'
@@ -110,6 +112,25 @@ router.get('/publicrp/:roadmapId', catchAsync(async (req, res) => {
     res.render('roadmap/publicShow', {reqRoadmap});
 }))
 
+router.delete('/public/:roadmapId/delete', isLoggedIn, roadmapAuthor, catchAsync(async (req, res) => {
+    const {roadmapId} = req.params;
+    const reqRoadmap = await Publicroadmap.findByIdAndRemove(roadmapId, catchAsync(async (err) => {
+        if(err) console.log(err);
+        const reqUser = await User.updateOne({_id:req.user._id},{$pullAll:{"publicroadmaps":[roadmapId]}})
+        // console.log("inside delete", reqSubsection);
+    }));
+    res.redirect(`/public`);
+}))
+
+router.delete('/private/:roadmapId/delete', isLoggedIn, catchAsync(async (req, res) => {
+    const {roadmapId} = req.params;
+    const reqRoadmap = await Roadmap.findByIdAndRemove(roadmapId, catchAsync(async (err) => {
+        if(err) console.log(err);
+        const reqUser = await User.updateOne({_id:req.user._id},{$pullAll:{"roadmaps":[roadmapId]}})
+        // console.log("inside delete", reqSubsection);
+    }));
+    res.redirect(`/private`);
+}))
 
 
 

@@ -8,17 +8,17 @@
 
 <!-- ADD SUBSECTION BUTTON -->
 <div style="display: flex; justify-content: center;">
-    <button class="btn btn-primary" type="button"data-bs-toggle="dropdown"aria-expanded="false">
+    <button class="btn btn-primary" type="button"data-bs-toggle="dropdown"aria-expanded="false" data-bs-offset="5,10">
         <i class="bi bi-plus-circle-fill"></i> &nbsp Add Subsection
     </button>
     <ul class="dropdown-menu">
         <li>
-            <button type="button" class="btn btn-white btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="modal"data-bs-target="#addText" style="width: 100%;">
+            <button type="button" class="btn btn-white btn-sm d-flex align-items-center justify-content-center li-items" data-bs-toggle="modal"data-bs-target="#addText" style="width: 100%;">
                 Add Text
             </button>
         </li>
         <li>
-            <button type="button" class="btn btn-white btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="modal"data-bs-target="#addLink" style="border-top: 1px solid black; width: 100%;">
+            <button type="button" class="btn btn-white btn-sm d-flex align-items-center justify-content-center li-items" data-bs-toggle="modal"data-bs-target="#addLink" style="border-top: 1px solid black; width: 100%;">
                 Add Link                
             </button>
         </li>
@@ -30,7 +30,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-body">
-        <form action="/<%=roadmapId%>/subsection/<%= reqSection._id%>/add" method="POST" novalidate class="validated-form">
+        <form action="/private/<%=roadmapId%>/subsection/<%= reqSection._id%>/add" method="POST" novalidate class="validated-form">
             <div class="mb-3">
               <label class="form-label" for="subsection">Add Text : </label>
               <input id="subsection" class="form-control" placeholder="Add subsection ..." name="subsection" required>
@@ -56,7 +56,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-body">
-        <form action="/<%=roadmapId%>/subsection/<%= reqSection._id%>/add" method="POST" novalidate class="validated-form">
+        <form action="/private/<%=roadmapId%>/subsection/<%= reqSection._id%>/add" method="POST" novalidate class="validated-form">
             <div class="mb-3">
               <label class="form-label" for="topic">Link Text : </label>
               <input type="text" id="textLink" class="form-control" placeholder="Link Text ..." name="linktext" required>
@@ -111,9 +111,22 @@
                     <%= subsection.heading %>
                     <% } %> 
                 </div>
-                <div id="sectionoption">
+                <button id="sectionoption" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>
-                </div>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                      <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"data-bs-target="#">
+                          Edit
+                      </button>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                      <form action="/private/<%= roadmapId %>/<%=reqSection._id%>/<%=subsection._id%>/delete?_method=DELETE" method="POST">
+                          <button class="btn btn-white btn-sm">Delete</button>
+                      </form>
+                  </li>
+                </ul>
             </div>
         <% }) %> 
     </div>

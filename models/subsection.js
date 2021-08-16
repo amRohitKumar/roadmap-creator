@@ -5,10 +5,13 @@ const subSectionSchema = new Schema({
     heading : String,
     linkText: String,
     status: Boolean,
-    userId: String,
-    copmpletedCount: Number,
-    totalUserCount: Number
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
 })
+
+// subSectionSchema.post('')
 
 const Subsection = mongoose.model('Subsection', subSectionSchema);
 module.exports = Subsection;

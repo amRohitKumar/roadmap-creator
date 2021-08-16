@@ -6,11 +6,13 @@
     </div>
 </div>
 
+<% if(currentUser._id == (reqRoadmap.author).toString()){ %> 
 <div style="display: flex; justify-content: center;">
     <a class="btn btn-outline-dark" href="" role="button" style="text-transform:none" data-bs-toggle="modal" data-bs-target="#createSection">
         <i class="bi bi-folder-plus"></i> &nbsp Add a section
     </a>
 </div>
+<% } %> 
 
 <div class="modal fade" id="createSection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -44,7 +46,7 @@
       </div>
     </div>
 </div>
-
+<% console.log("ejs", reqRoadmap) %> 
 <% if(reqRoadmap.section.length === 0){ %> 
     <div class="container alert-class">
         <div class="alert alert-warning d-flex align-items-center mt-3 " role="alert" >
@@ -57,16 +59,31 @@
 <% }else{ %> 
     <div class="container mt-3 col-8 offset-2 ">
         <% reqRoadmap.section.forEach((section, i) => { %>
-            <div class="container section-class my-2" onclick="location.href='/public/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
+            <div class="container section-class my-2" >
                 <div id="sectionCount" class="rounded-3" >
                         <%= i+1 %>
                 </div>
-                <div id="sectioninfo">
+                <div id="sectioninfo" onclick="location.href='/public/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
                     <%= section.heading %>
                 </div>
-                <div id="sectionoption">
+                <% if((reqRoadmap.author).toString() == currentUser._id){ %> 
+                <button id="sectionoption" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>
-                </div>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <button type="button" class="btn btn-white btn-sm   "data-bs-toggle="modal"data-bs-target="#">
+                        Edit
+                    </button>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form action="/public/<%=reqRoadmap._id%>/<%=section._id%>/delete?_method=DELETE" method="POST">
+                        <button class="btn btn-white btn-sm">Delete</button>
+                    </form>
+                  </li>
+                </ul>
+                <% } %> 
             </div>
         <% }) %> 
     </div>
