@@ -119,6 +119,9 @@
               </li>
               <% if((roadmap.author).toString() == currentUser._id){ %> 
                 <li>
+                  <a type="button" class="btn btn-white btn-sm" href="/public/<%=roadmap._id%>/info" > Info </a>
+                </li>
+                <li>
                   <a type="button" class="btn btn-white btn-sm"data-bs-toggle="modal" data-bs-target="#_<%=roadmap._id%>editrp">
                       Edit
                   </a>

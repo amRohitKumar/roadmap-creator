@@ -8,8 +8,12 @@ const publicSubSectionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    copmpletedCount: Number,
-    totalUserCount: Number
+    completed: [
+        {
+            type:Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
 })
 
 const Publicsubsection = mongoose.model('Publicsubsection', publicSubSectionSchema);

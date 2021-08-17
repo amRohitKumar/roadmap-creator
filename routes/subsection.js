@@ -7,6 +7,7 @@ const Publicsection = require('../models/publicsection');
 const Subsection = require('../models/subsection');
 const Publicsubsection = require('../models/publicsubsection');
 const catchAsync = require('../utils/catchAsync');
+const {alreadyDone} = require('../utils/helperFunction');
 const {isLoggedIn, roadmapAuthor} = require('../utils/middleware');
 
 
@@ -18,9 +19,45 @@ router.get('/private/:roadmapId/subsection/:sectionId', isLoggedIn, catchAsync(a
 
 router.get('/public/:roadmapId/subsection/:sectionId', isLoggedIn, catchAsync(async (req, res) => {
     const {roadmapId,sectionId} = req.params;
-    const reqSection = await Publicsection.findById(sectionId).populate('subsections');
-    console.log(reqSection);
-    res.render('roadmap/publicSubsection', {reqSection, roadmapId});
+    const reqSection = await Publicsection.findById(sectionId).populate({
+        path: 'subsections',
+        populate:[{
+            path: 'completed',
+            model:'User',
+            select:'name'
+        }]
+    });
+    // console.log(reqSection);
+    const finalArray = reqSection.subsections.map(function(obj){
+        return obj.completed.map(function(obj1){
+            return obj1._id;
+        })
+    })
+    // console.log(finalArray);
+    res.render('roadmap/publicSubsection', {reqSection, roadmapId, finalArray});
+}))
+
+router.get('/publicss/:roadmapId/:sectionId/:subsectionId/statusChange', isLoggedIn, catchAsync( async (req, res) => {
+    const {subsectionId, roadmapId, sectionId} = req.params;
+    const reqSubsection = await Publicsubsection.findById(subsectionId)
+    const currUser = await User.findById(req.user._id);
+    // console.log(reqSubsection.completed);
+    const currStatus = alreadyDone(reqSubsection,req.user._id);
+    // console.log(currStatus);
+    if(currStatus){
+        console.log('deleting ....');
+        // const res = await Publicsubsection.findByIdAndUpdate(subsectionId, {$pull: {"completed": [req.user._id]}});
+        const index = reqSubsection.completed.indexOf(req.user._id);
+        reqSubsection.completed.splice(index,1);
+        await reqSubsection.save();
+        // console.log(reqSubsection.completed);
+    }
+    else{
+        reqSubsection.completed.push(currUser);
+        await reqSubsection.save();
+    }
+    // console.log(reqSubsection.completed);
+    res.redirect(`/public/${roadmapId}/subsection/${sectionId}`);
 }))
 
 router.post('/private/:roadmapId/subsection/:sectionId/add', isLoggedIn, catchAsync(async (req, res) => {
@@ -39,7 +76,7 @@ router.post('/public/:roadmapId/subsection/:sectionId/add', isLoggedIn, roadmapA
     const {roadmapId , sectionId} = req.params;
     const reqSection = await Publicsection.findById(sectionId);
     const {heading, link = 'NOLINK'} = req.body;
-    const newSubsection = new Publicsubsection({heading: heading, completedCount: 0, totalUserCount: 0, author: req.user, link: link});
+    const newSubsection = new Publicsubsection({heading: heading, author: req.user, link: link});
     await newSubsection.save();
     reqSection.subsections.push(newSubsection);
     await reqSection.save();

@@ -24,7 +24,7 @@ router.post('/public/:roadmapId/newsection', isLoggedIn, roadmapAuthor, catchAsy
     const {roadmapId} = req.params;
     const {duration, heading} = req.body;
     const reqRoadmap = await Publicroadmap.findById(roadmapId);
-    console.log(reqRoadmap);
+    // console.log(reqRoadmap);
     const newSection = new Publicsection({heading, duration, author: req.user});
     await newSection.save()
     reqRoadmap.section.push(newSection);

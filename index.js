@@ -15,6 +15,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const localStrategy = require('passport-local');
+const copyToClipBoard = require('copy-to-clipboard');
 
 const User = require('./models/user');
 const Subsection = require('./models/subsection');
@@ -131,12 +132,12 @@ passport.use(
 
 
 app.use((req, res, next) => {
+    // copyToClipBoard('rohititsme');
     res.locals.success = req.flash("success");
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
     // res.locals.url = req.url;
     // console.log(req.url, req.originalUrl);
-    
     next();
 })
 

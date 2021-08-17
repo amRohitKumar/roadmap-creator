@@ -75,15 +75,15 @@ router.post('/join/public', isLoggedIn, catchAsync(async (req, res) => {
         res.redirect('/private');
     }
     else if(authorId == req.user._id){
-        console.log('inside the if block');
         req.flash('error', "You can't join your own roadmap !");
         return res.redirect('/private');
     }
     if(reqPublicRoadmap.password === password){
-        console.log('inside password block');
         const reqUser = await User.findById(userId);
         reqUser.publicroadmaps.push(reqPublicRoadmap);
         await reqUser.save();
+        reqPublicRoadmap.participants.push(reqUser);
+        await reqPublicRoadmap.save();
         req.flash('success', "Roadmap added !");
         res.redirect('/public');
     }
@@ -92,6 +92,28 @@ router.post('/join/public', isLoggedIn, catchAsync(async (req, res) => {
         res.redirect('/public');
     }
 
+}))
+
+router.get('/private/:roadmapId/info', isLoggedIn, catchAsync( async (req, res) => {
+    const {roadmapId} = req.params;
+    const reqRoadmap = await Roadmap.findById(roadmapId).populate({
+        path: 'author',
+        select: 'name'
+    });
+    res.render('roadmap/privateRoadmapInfo', {reqRoadmap});
+}))
+
+router.get('/public/:roadmapId/info', isLoggedIn, roadmapAuthor,catchAsync( async (req, res) => {
+    const {roadmapId} = req.params;
+    const reqRoadmap = await Publicroadmap.findById(roadmapId).populate({
+        path: 'author',
+        select: 'name'
+    }).populate({
+        path: 'participants',
+        select: 'name',
+    });
+    // console.log(reqRoadmap);
+    res.render('roadmap/publicRoadmapInfo', {reqRoadmap});
 }))
 
 router.get('/privaterp/:roadmapId', isLoggedIn, catchAsync(async (req, res) => {

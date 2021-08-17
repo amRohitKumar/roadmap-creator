@@ -4,8 +4,8 @@ const joinPublic = document.querySelector('#joinPublic');
 const mover = document.querySelector('.hori-selector');
 
 let currLink = window.location.pathname;
-console.log(window.location.pathname)
-console.log(currLink);
+// console.log(window.location.pathname)
+// console.log(currLink);
 if(currLink === '/public'){
     mover.classList.remove('hideClass');
     addPrivate.classList.add('hideClass');

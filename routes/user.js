@@ -15,7 +15,7 @@ router.get('/login', (req, res) => {
 router.get("/login/google", passport.authenticate("google", {scope: ["profile", "email"]}));
 
 router.get("/login/google/redirect", passport.authenticate('google', {failureRedirect: '/register'}), async (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     let userId = req.user._id;
     const name = req.user.name;
     req.flash('success', `Welcome to Roadmap-Creator ${name}`)

@@ -1,3 +1,7 @@
+const User = require('../models/user');
+const Publicsubsection = require('../models/publicsubsection');
+const {catchAsync} = require('./catchAsync');
+
 module.exports.DateAndMonth = () => {
     const d = new Date();
     const date = d.getDate();
@@ -14,3 +18,10 @@ module.exports.Time = () => {
     const finalTime = `${hour}:${minute}`;
     return finalTime;
 }
+
+module.exports.alreadyDone = (subsection, userId) => {
+    if(subsection.completed.includes(userId)){
+        return true;
+    }
+    else return false;
+};

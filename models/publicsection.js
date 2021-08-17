@@ -20,7 +20,7 @@ const publicSectionSchema = new Schema({
 publicSectionSchema.post('findOneAndDelete', async function(publicSection){
     if(publicSection.subsections.length){
         const resRemoved = await Publicsubsection.deleteMany({_id: {$in: publicSection.subsections}})
-        console.log(resRemoved);
+        // console.log(resRemoved);
     }
 })
 

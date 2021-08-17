@@ -101,7 +101,6 @@
     </div>
 <% }else{ %> 
     <div class="container mt-3 col-8 offset-2 ">
-        <% console.log(reqSection.subsections) %> 
         <% reqSection.subsections.forEach((subsection, i) => { %>
             <div class="container section-class my-2">
                 <div id="sectionCount" class="rounded-3" >
@@ -114,54 +113,62 @@
                     <%= subsection.heading %>
                     <% } %> 
                 </div>
-                <% if((reqSection.author).toString() == currentUser._id){ %> 
-                <button id="sectionoption" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                      <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"data-bs-target="#_<%=subsection._id%>editss">
-                          Edit
-                      </button>
-                  </li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li>
-                      <form action="/public/<%= roadmapId %>/<%=reqSection._id%>/<%=subsection._id%>/delete?_method=DELETE" method="POST">
-                          <button class="btn btn-white btn-sm">Delete</button>
-                      </form>
-                  </li>
-                </ul>
-
-                <!-- EDIT SUBSECTION MODAL -->
-                <div class="modal fade" id="_<%=subsection._id%>editss" tabindex="-1" aria-labelledby="textModal" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                      <div class="modal-body">
-                      <form action="/public/<%= roadmapId %>/<%=reqSection._id%>/<%=subsection._id%>/edit?_method=PUT" method="POST" novalidate class="validated-form">
-                          <div class="mb-3">
-                            <label class="form-label" for="editText">Edit Text/Lik : </label>
-                            <input id="editText" class="form-control" placeholder="Text/LinkText ..." name="heading" required value="<%=subsection.heading%>">
-                            <div class="valid-feedback">
-                              Looks Good !
+                <div id="sectionoption">
+                  <% if((reqSection.author).toString() == currentUser._id){ %> 
+                  <button  class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                        <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"data-bs-target="#_<%=subsection._id%>editss">
+                            Edit
+                        </button>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form action="/public/<%= roadmapId %>/<%=reqSection._id%>/<%=subsection._id%>/delete?_method=DELETE" method="POST">
+                            <button class="btn btn-white btn-sm">Delete</button>
+                        </form>
+                    </li>
+                  </ul>
+  
+                  <!-- EDIT SUBSECTION MODAL -->
+                  <div class="modal fade" id="_<%=subsection._id%>editss" tabindex="-1" aria-labelledby="textModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                        <form action="/public/<%= roadmapId %>/<%=reqSection._id%>/<%=subsection._id%>/edit?_method=PUT" method="POST" novalidate class="validated-form">
+                            <div class="mb-3">
+                              <label class="form-label" for="editText">Edit Text/Lik : </label>
+                              <input id="editText" class="form-control" placeholder="Text/LinkText ..." name="heading" required value="<%=subsection.heading%>">
+                              <div class="valid-feedback">
+                                Looks Good !
+                              </div>
+                              <div class="invalid-feedback">
+                                Please enter a valid Text/LinkText.
+                              </div>
                             </div>
-                            <div class="invalid-feedback">
-                              Please enter a valid Text/LinkText.
+                            <div class="mb-3">
+                              <label class="form-label" for="link">Edit Text/Lik : </label>
+                              <input id="link" class="form-control" placeholder="https://example.com (IGNORE IF SUBSECTION IS NOT A LINK) ..." name="link" value="<%=subsection.link%>">
                             </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label" for="link">Edit Text/Lik : </label>
-                            <input id="link" class="form-control" placeholder="https://example.com (IGNORE IF SUBSECTION IS NOT A LINK) ..." name="link" value="<%=subsection.link%>">
-                          </div>
-                          <div class="modal-footer container d-flex justify-content-center align-items-center">
-                            <button class="btn btn-success ">Done</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          </div>
-                      </form>
+                            <div class="modal-footer container d-flex justify-content-center align-items-center">
+                              <button class="btn btn-success ">Done</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <% }else{ %> 
+                    <a href="/publicss/<%=roadmapId%>/<%=reqSection._id%>/<%=subsection._id%>/statusChange" > 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill=" <%= finalArray[i].includes(currentUser._id)?"green":"red" %> " class="bi bi-check-lg" viewBox="0 0 16 16">
+                        <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
+                      </svg>
+                    </a> 
+                  <% } %> 
                 </div>
-                <% } %> 
             </div>
         <% }) %> 
     </div>
