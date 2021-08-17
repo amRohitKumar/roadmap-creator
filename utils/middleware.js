@@ -1,5 +1,6 @@
 const Publicroadmap = require("../models/publicRoadmap");
 const catchAsync = require("./catchAsync");
+const ExpressError = require('../utils/ExpressError');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
@@ -15,6 +16,9 @@ module.exports.roadmapAuthor = catchAsync(async (req, res, next) => {
     const currUserId = req.user._id;
     const {roadmapId} = req.params;
     const reqRoadmap = await Publicroadmap.findById(roadmapId);
+    if(!reqRoadmap){
+        return new ExpressError("You are not authorized !", 500);
+    }
     const authorId = (reqRoadmap.author).toString();
     if(authorId == currUserId){
         next();
