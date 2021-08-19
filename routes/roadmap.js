@@ -140,6 +140,10 @@ router.get('/privaterp/:roadmapId',isLoggedIn, privateRoadmapAuthor ,catchAsync(
     const reqRoadmap = await Roadmap.findById(roadmapId).populate({
         path: 'section'
     })
+    if(!reqRoadmap){
+        req.flash('error', "No private roadmaps found !");
+        return res.redirect('/private');
+    }
     res.render('roadmap/show', {reqRoadmap});
 }))
 
@@ -148,6 +152,10 @@ router.get('/publicrp/:roadmapId', isLoggedIn, catchAsync(async (req, res) => {
     const reqRoadmap = await Publicroadmap.findById(roadmapId).populate({
         path: 'section'
     })
+    if(!reqRoadmap){
+        req.flash('error', "No public roadmaps found !");
+        return res.redirect('/private');
+    }
     res.render('roadmap/publicShow', {reqRoadmap});
 }))
 
@@ -155,6 +163,10 @@ router.put('/public/:roadmapId/edit',isLoggedIn, roadmapAuthor, catchAsync(async
     const {roadmapId} = req.params;
     const {title, description} = req.body;
     const updatedRoadmap = await Publicroadmap.findByIdAndUpdate(roadmapId, {title: title, description: description});
+    if(!updatedRoadmap){
+        req.flash('error', "No public roadmap found !");
+        return res.redirect('/public');
+    }
     res.redirect('/public');
 }))
 

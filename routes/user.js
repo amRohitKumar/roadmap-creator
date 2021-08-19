@@ -25,7 +25,7 @@ router.get("/login/google/redirect", passport.authenticate('google', {failureRed
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), catchAsync(async (req, res) => {
 
     req.flash('success', `Welcome back ${req.user.name}!`);
-    res.redirect(`/private`);
+    await res.redirect(`/private`);
 }))
 
 router.post('/register', catchAsync(async (req, res) => {
