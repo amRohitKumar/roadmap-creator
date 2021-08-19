@@ -5,6 +5,10 @@ const roadmapSchema = new Schema({
     title: String,
     description : String,
     authorName: String,
+    dateCreated: {
+        type: Date,
+        default: Date.now()
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'

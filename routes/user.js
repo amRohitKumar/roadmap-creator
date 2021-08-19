@@ -44,11 +44,11 @@ router.post('/register', catchAsync(async (req, res) => {
     }
 }))
 
-router.get('/logout', (req, res) => {
+router.get('/logout', catchAsync(async (req, res) => {
     const userName = req.user.name;
-    req.logout();
+    await req.logout();
     req.flash('success', `Goodbye ${userName} !`);
     res.redirect('/');
-})
+}))
 
 module.exports = router;

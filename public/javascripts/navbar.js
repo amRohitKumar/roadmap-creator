@@ -2,6 +2,9 @@ const viewPrivate = document.querySelector('#viewPrivate');
 const viewPublic = document.querySelector('#viewPublic');
 const publicLi = document.querySelector('#publicLi');
 const privateLi = document.querySelector('#privateLi');
+const registerPage = document.querySelector('#registerPage');
+const loginPage = document.querySelector('#loginPage');
+
 
 
 
@@ -19,6 +22,16 @@ else if(currLink === '/private'){
   viewPublic.classList.remove('active');
   viewPublic.removeAttribute('aria-current');
   viewPrivate.style.color = "#0d6efd";
+}
+else if(currLink === '/register'){
+  loginPage.classList.remove('active');
+  registerPage.classList.add('active');
+  registerPage.style.color = "#0d6efd"
+}
+else if(currLink === '/login'){
+  loginPage.classList.add('active');
+  registerPage.classList.remove('active');
+  loginPage.style.color = "#0d6efd"
 }
 
 // ---------Responsive-navbar-active-animation-----------

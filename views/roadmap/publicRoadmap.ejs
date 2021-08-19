@@ -1,4 +1,11 @@
 <% layout('layouts/boilerplate') %>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page"> <a href="/public">Public Roadmap</a> </li>
+  </ol>
+</nav>
+
 
 <!-- MODAL TO CREATE NEW PUBLIC ROADMAP  -->
 <div class="modal fade" id="createPublic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,13 +105,13 @@
     <div class="mt-5">
       <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 " >
         <% for(let roadmap of reqUser.publicroadmaps){ %> 
-        <div class="col roadmapDiv my-2" style="padding:0" >
+        <div class="col roadmapDiv my-2 overflow-auto" style="padding:0" >
           <div class="roadmapInnerDiv">
             <div id="roadmapInnerInfoDiv" onclick="location.href='/publicrp/<%=roadmap._id%>'">
-              <span class="roadDivTitle">
+              <span class="roadDivTitle overflow-auto ">
                 <%= roadmap.title %> 
               </span>
-              <span class="roaDivAuthor" >
+              <span class="roadDivAuthor text-wrap badge bg-primary my-1" style="width: fit-content;" >
                 Authror : <%= roadmap.authorName %> 
               </span>
             </div>
@@ -112,11 +119,7 @@
               <i class="bi bi-three-dots-vertical"></i>
             </button>
             <ul class="dropdown-menu">
-              <li>
-                <a type="button" class="btn btn-white btn-sm">
-                  Leave 
-                </a>
-              </li>
+              
               <% if((roadmap.author).toString() == currentUser._id){ %> 
                 <li>
                   <a type="button" class="btn btn-white btn-sm" href="/public/<%=roadmap._id%>/info" > Info </a>
@@ -132,6 +135,12 @@
                     <button class="btn btn-white btn-sm">Delete</button>
                 </form>
               </li>
+              <% }else{ %>
+                <li>
+                  <a class="btn btn-white btn-sm" href="/public/<%=roadmap._id%>/leave">
+                    Leave 
+                  </a>
+                </li>
               <% } %> 
             </ul>
 

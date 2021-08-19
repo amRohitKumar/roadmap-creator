@@ -6,6 +6,10 @@ const publicRoadmapSchema = new Schema({
     description : String,
     password: String,
     authorName: String,
+    dateCreated: {
+        type: Date,
+        default: Date.now()
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'

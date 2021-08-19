@@ -1,4 +1,10 @@
 <% layout('layouts/boilerplate') %>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page"> <a href="/private">Private Roadmap</a> </li>
+  </ol>
+</nav>
 
 <div class="modal fade" id="createPrivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -59,11 +65,6 @@
               <i class="bi bi-three-dots-vertical"></i>
             </button>
             <ul class="dropdown-menu">
-              <li>
-                <a type="button" class="btn btn-white btn-sm">
-                  Leave 
-                </a>
-              </li>
               <% if((roadmap.author).toString() == currentUser._id){ %> 
                 <li>
                   <a type="button" class="btn btn-white btn-sm" href="/private/<%=roadmap._id%>/info"> Info </a>

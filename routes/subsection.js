@@ -8,7 +8,7 @@ const Subsection = require('../models/subsection');
 const Publicsubsection = require('../models/publicsubsection');
 const catchAsync = require('../utils/catchAsync');
 const {alreadyDone} = require('../utils/helperFunction');
-const {isLoggedIn, roadmapAuthor} = require('../utils/middleware');
+const {isLoggedIn, roadmapAuthor, privateRoadmapAuthor} = require('../utils/middleware');
 
 
 router.get('/private/:roadmapId/subsection/:sectionId', isLoggedIn, catchAsync(async (req, res) => {
@@ -58,6 +58,14 @@ router.get('/publicss/:roadmapId/:sectionId/:subsectionId/statusChange', isLogge
     }
     // console.log(reqSubsection.completed);
     res.redirect(`/public/${roadmapId}/subsection/${sectionId}`);
+}))
+
+router.get('/privatess/:roadmapId/:sectionId/:subsectionId/statusChange', isLoggedIn, privateRoadmapAuthor, catchAsync(async (req, res) => {
+    const {subsectionId, roadmapId, sectionId} = req.params;
+    const reqSubsection = await Subsection.findById(subsectionId);
+    reqSubsection.status = !(reqSubsection.status);
+    await reqSubsection.save();
+    res.redirect(`/private/${roadmapId}/subsection/${sectionId}`);
 }))
 
 router.post('/private/:roadmapId/subsection/:sectionId/add', isLoggedIn, catchAsync(async (req, res) => {

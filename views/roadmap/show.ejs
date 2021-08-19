@@ -1,4 +1,12 @@
 <% layout('layouts/boilerplate') %>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page"> <a href="/private">Private Roadmap</a> </li>
+    <li class="breadcrumb-item active" aria-current="page"> <a href="/privaterp/<%=reqRoadmap._id%>">Section</a> </li>
+  </ol>
+</nav>
+
 
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center mt-4 mb-3">
@@ -62,8 +70,8 @@
                         <%= i+1 %>
                 </div>
                 <div id="sectioninfo" onclick="location.href='/private/<%=reqRoadmap._id%>/subsection/<%= section._id%>'">
-                  <p> Heading : <%= section.heading %> </p>   
-                  <p> Duration : <%= section.duration %> Weeks </p>
+                  <p> <strong>Heading :</strong> <%= section.heading %> </p>   
+                  <p> <strong>Duration :</strong> <%= section.duration %> Weeks </p>
                 </div>
                 <button id="sectionoption" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>

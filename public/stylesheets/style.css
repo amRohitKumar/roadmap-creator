@@ -20,15 +20,21 @@
 }
 
 .roadDivTitle{
+    display: flex;
     font-weight: bold;
+    max-height: 6em;
 }
 .roadDivTitle:hover{
     cursor: pointer;
     text-decoration: underline;
 }
 
+.roadDivAuthor{
+    font-size: 0.8em !important;
+}
+
 .roadmapDiv:hover{
-    box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+    box-shadow: 0 1px 2px 0 rgb(60 64 250 / 30%), 0 2px 6px 2px rgb(60 64 250 / 15%);
 }
 
 .roadmapInnerDiv{
@@ -43,7 +49,8 @@
     border-top-left-radius: 0.5rem;
     width: 100%;
     min-height: 4rem;
-    height: max-content
+    height: max-content;
+    max-height: 8rem;
 }
 
 #roadmapInnerInfoDiv{
@@ -66,27 +73,43 @@
 .section-class{
     display: flex;
     justify-content: space-around;
-    border: 1px solid black;
+    align-items: flex-start !important;
     height: max-content;
     min-height: 5rem !important;
-    cursor: pointer;
     padding: 0.5rem;
     border-radius: 1rem;
+    cursor: pointer;
+}
+.section-class:hover{
+    box-shadow: 0 1px 2px 0 rgb(60 64 250 / 30%), 0 2px 6px 2px rgb(60 64 250 / 15%);
 }
 
-.section-class:hover{
+.subsection-class{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start !important;
+    height: max-content;
+    min-height: 5rem !important;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.subsection-class:hover{
     box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
 }
 
 #sectionCount{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 5%;
-    border: 1px solid black;
+    background-color: rgba(63, 119, 223, 0.26);
+    /* border: 1px solid black; */
+    /* border-radius: 50% !important; */
     margin-right: 1rem;
-    height: 3em;
-    margin-top: 0.5em;
+    /* height: 3em; */
+    /* margin-top: 0.5em; */
 }
 
 .hideClass{
@@ -106,14 +129,44 @@
     border-radius: 50%;
 }
 #sectioninfo{
+    padding-left: 0.5em;
+    border: 1px solid black;
+    border-radius: 1rem;
     width: 90%;
+    height: max-content;
+    min-height: 5rem !important;
 }
-#sectionoption{
+.subsectioninfo{
     display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
+    padding-left: 0.5em;
+    border: 1px solid black;
+    border-radius: 1rem;
+    width: 90%;
+    height: max-content;
+    min-height: 5rem !important;
+}
+
+#sectionoption{
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-direction: row !important;
+    padding-left: 1em;
     height: 100%;
     width: 5%;
+}
+
+#statusChange{
+    margin-left: 0.5em;
+    margin-top: 0.2em;
+}
+
+#completeUserCount{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0.5em 0.6em 0.2em 0.2em;
+    font-family: 'Kumar One', sans-serif;
 }
 
 #exclude a:not(#logout){
@@ -137,6 +190,11 @@
 #logout:hover{
     color: rgb(81, 97, 206);
     box-shadow: inset 0 0 5rem rgba(63, 101, 226, 0.5);
+}
+
+[aria-label="breadcrumb"] a, a:hover, a:focus, a:active{
+    text-decoration: none;
+    color: inherit;
 }
 
 @media (min-width: 575px){

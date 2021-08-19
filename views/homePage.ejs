@@ -12,42 +12,49 @@
     <title>Roadmap-Creator</title>
 </head>
 
-<body class="d-flex text-center text-white bg-dark">
+<body class="d-flex">
+    <div class="backgroundShape"></div>
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-left mb-0">College-Quora</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-right mt-2">
-                    <% if(!currentUser) { %>
-                        <a class="nav-link" href="/login">Login</a>
-                        <a class="nav-link" href="/register">Register</a>
-                    <% } else { %>
-                        <!-- <a class="nav-link" href="/">Home</a> -->
-                        <a class="nav-link" href="/private">Roadmaps</a>
-                        <a class="nav-link" href="/logout">Logout</a>
-                    <% } %>
-                </nav>
+                <h3 class="float-md-left mb-0">Roadmap-Creator</h3>
             </div>
-        </header>  
-        <main class=" container px-3 mt-5">
-            <h1>College-Quora</h1>
+        </header>
+        <!-- <main class=" container px-3 mt-5">
+            <h1>Roadmap-Creator</h1>
             <p class="lead">A platform where students can ask questions and connect with people who contribute unique insights and quality answers. </p>
- 
-            <div class="font-weight-bold badge-base LI-profile-badge d-flex justify-content-center align-items-center"data-locale="en_US" data-size="medium" data-theme="light"
-                data-type="VERTICAL" data-vanity="rohit-kumar-8ba1241bb" data-version="v1"><a
-                    class="badge-base__link LI-simple-link"
-                    href="https://in.linkedin.com/in/rohit-kumar-8ba1241bb?trk=profile-badgetarget=" target="_blank">
-                    <span class="font-weight-bold " style="color: turquoise; font-weight:500; font-size: large; text-decoration: none;">Rohit Kumar</span> </a>
-                    
 
+        </main> -->
+        <div class="whole">
+            <div class="leftContainer rounded">
+                <h1>Welcome !</h1>
+                <p>In order for your product development to go off without a hitch, you need a well thought out plan. A
+                    roadmap will communicate what the end result of your product should be, and the steps and tools needed
+                    to get there.
+    
+                    But in order for your roadmap to do its job, it needs to be designed well. Your roadmap needs to be easy
+                    to follow and engaging to readers.</p>
+            </div>
+            <div class="rightContainer .col-4 gap-2">
+                <% if(!currentUser) { %>
+                    <a class="btn btn-lg btn-warning my-1 btn-custom" href="/login">Login</a>
+                    <a class="btn btn-lg btn-warning my-1 btn-custom" href="/register">Register</a>
+                    <% } else { %>
+                        <a class="btn btn-lg btn-warning my-1 btn-custom" href="/private">Roadmaps</a>
+                        <a class="btn btn-lg btn-danger my-1 btn-custom" href="/logout">Logout</a>
+                <% } %>
+            </div>
+        </div>
+
+        <div id="footer" class="mt-auto">
+            <div style="font-size: x-large;"> Roadmap-Creator</div>
+            <div id="socialHandles" class="mt-2">
+                <a id="linkedin" href="https://in.linkedin.com/in/rohit-kumar-8ba1241bb?trk=profile-badgetarget=" target="_blank"></a>
+                <a id="insta" href="https://www.instagram.com/hey.rohitt/" target="_blank"></a>
+                <a id="github" href="https://github.com/shutupRohit" target="_blank"></a>
             </div>
 
-        </main>
-
-
-        <footer class="mt-auto text-white-50">
-            <p>&copy; 2021 </p>
-        </footer>
+        </div>
 
 
     </div>

@@ -1,23 +1,71 @@
 <% layout('layouts/boilerplate') %>
-<div class="d-flex justify-content-center align-items-center mt-5">
-    <div class="card " style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title" style="text-align: center; border-bottom: 1px solid hsl(232, 56%, 56%);"> <%= reqRoadmap.title %>  </h5>
-          <div class="card-text">UniqueId </div>
-          <div class="d-flex">
-              <h6 class="card-subtitle my-3 js-target"><%= reqRoadmap._id %> </h6>
-              <!-- <button id="copyId"><i class="bi bi-clipboard"></i></button> -->
-              
-          </div>
-          <h6 class="card-subtitle my-3 text-muted"> Author: <%= reqRoadmap.author.name %> </h6>
-            <p class="card-text"> <%= reqRoadmap.description %> </p>
-            <p class="card-text">Subsection Count: <%= reqRoadmap.section.length %> </p>
-            Participants Enrolled :
-            <ol class="list-group list-group-numbered">
-                <% for(let participant of reqRoadmap.participants){ %> 
-                    <li class="list-group-item"> <%= participant.name %>  </li>
-                <% } %> 
-            </ol>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"> <a href="/public">Public Roadmap</a> </li>
+        <li class="breadcrumb-item active" aria-current="page"> <a href="/public/<%=reqRoadmap._id%>/info">Roadmap
+                Info</a> </li>
+    </ol>
+</nav>
+
+<div id="mainInfoDiv" class="p-3 bg-body rounded">
+    <div id="infoInnerDiv">
+        <div id="mainDiv">
+            <div id="headingDiv">
+                <h2>
+                    <%= reqRoadmap.title %>
+                </h2>
+            </div>
+            <div id="idDiv" class="mb-2">
+                <strong>UniqueId:</strong> &nbsp&nbsp
+                <textarea id="uId" cols="30" rows="1" readonly> <%= reqRoadmap._id %> </textarea>
+                <button id="copyId" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy To Clipboard">
+                    <i id="initial" class="bi bi-clipboard"></i>
+                    <i id="final" class="bi bi-check2 hideClass"></i>
+                </button>
+            </div>
+            <div class="mb-2 d-flex">
+                <div>
+                    <strong>Author:</strong>
+                </div>
+                <div>
+                    <%= reqRoadmap.author.name %>
+                </div>
+            </div>
+            <div>
+                <p>
+                    <strong>Date Created:</strong>
+                </p>
+                <p class="d-flex">
+                    <%= reqRoadmap.dateCreated %>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <strong>Description: </strong>
+                </p>
+                <p class="mb-2 d-flex">
+                    <%= reqRoadmap.description %>
+                </p>
+            </div>
+            <p class="mb-2 d-flex"> <strong>Subsection Count:</strong></p>
+            <p>
+                <%= reqRoadmap.section.length %>
+            </p>
+            <div>
+                <strong>Participants Enrolled : </strong> <%= reqRoadmap.participants.length %>
+                <ol class="list-group list-group-numbered">
+                    <% if(reqRoadmap.participants.length==0){ %>
+                        No participants enrolled.
+                        <% }else{ %>
+                            <% for(let participant of reqRoadmap.participants){ %>
+                                <li class="list-group-item">
+                                    <%= participant.name %>
+                                </li>
+                        <% } %>
+                    <% } %>
+                </ol>
+            </div>
         </div>
     </div>
 </div>
