@@ -209,3 +209,17 @@
         width: 28%;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .smallS {
+      width: 96% !important;
+      margin-left: 2% !important;
+      margin-right: 2% !important;
+    }
+  }
+  @media screen and (max-width: 300px) {
+    .smallS {
+      width: 100% !important;
+    }
+  }
+  
