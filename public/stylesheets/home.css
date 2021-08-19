@@ -13,13 +13,12 @@ header{
     width: 100%;
     background-color: #3180f7cc;
     clip-path: polygon(0 0, 71% 0, 40% 100%, 0% 100%);
-    z-index: -2;
+    z-index: -1;
     transition: all ease-out 650ms;
 }
 
 .backgroundShape:hover{
-    clip-path: polygon(0 0, 75% 0, 44% 100%, 0% 100%);
-    
+    clip-path: polygon(0 0, 75% 0, 44% 100%, 0% 100%);   
 }
 
 .whole{
@@ -55,10 +54,20 @@ header{
     transition: all ease-out  550ms;
 }
 
+.rightContainer::before{
+    content: 'CREATE A ROADMAP';
+    font-size: larger;
+    margin-bottom: 2em;
+    border-radius: 12px;
+    background-color: greenyellow;
+    padding: 0.5em;
+    text-align: center;
+}
+
 
 .btn-custom::after{
     content: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22currentColor%22%20class%3D%22bi%20bi-arrow-right-square-fill%22%20viewBox%3D%220%200%2016%2016%22%3E%0A%20%20%3Cpath%20d%3D%22M0%2014a2%202%200%200%200%202%202h12a2%202%200%200%200%202-2V2a2%202%200%200%200-2-2H2a2%202%200%200%200-2%202v12zm4.5-6.5h5.793L8.146%205.354a.5.5%200%201%201%20.708-.708l3%203a.5.5%200%200%201%200%20.708l-3%203a.5.5%200%200%201-.708-.708L10.293%208.5H4.5a.5.5%200%200%201%200-1z%22%2F%3E%0A%3C%2Fsvg%3E);
-    transition: all ease-out 350ms;
+    transition: all  200ms;
     visibility: hidden;
 }
 
@@ -69,6 +78,7 @@ header{
     margin-left: 0.5em;
     visibility: visible;
 }
+
 
 #footer{
     /* opacity: 0.2; */

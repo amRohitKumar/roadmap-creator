@@ -47,7 +47,7 @@ router.post('/register', catchAsync(async (req, res) => {
 router.get('/logout', catchAsync(async (req, res) => {
     const userName = req.user.name;
     await req.logout();
-    req.flash('success', `Goodbye ${userName} !`);
+    req.flash('success', `Goodbye ${userName}. Looking forward to seeing you at Roadmap-Creator !`);
     res.redirect('/');
 }))
 

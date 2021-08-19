@@ -28,20 +28,21 @@
         <div class="whole">
             <div class="leftContainer rounded">
                 <h1>Welcome !</h1>
-                <p>In order for your product development to go off without a hitch, you need a well thought out plan. A
-                    roadmap will communicate what the end result of your product should be, and the steps and tools needed
-                    to get there.
-    
-                    But in order for your roadmap to do its job, it needs to be designed well. Your roadmap needs to be easy
-                    to follow and engaging to readers.</p>
+                <p>In order for your product development to go off without a hitch, you need a well thought out plan. A roadmap will communicate what the end result of your product should be, and the steps needed to get there.
+                <br>
+                That's where Roadmap-Creator can help. Roadmap-Creator provides user to create private and public Roadmaps and track their progress in order to enhance the overall productivity.
+                </p>
             </div>
-            <div class="rightContainer .col-4 gap-2">
+            <div class="rightContainer gap-2">
                 <% if(!currentUser) { %>
+                    <!-- <div id="innerMap">
+                        CREATE A ROADMAP
+                    </div> -->
                     <a class="btn btn-lg btn-warning my-1 btn-custom" href="/login">Login</a>
                     <a class="btn btn-lg btn-warning my-1 btn-custom" href="/register">Register</a>
                     <% } else { %>
-                        <a class="btn btn-lg btn-warning my-1 btn-custom" href="/private">Roadmaps</a>
-                        <a class="btn btn-lg btn-danger my-1 btn-custom" href="/logout">Logout</a>
+                    <a class="btn btn-lg btn-warning my-1 btn-custom" href="/private">Roadmaps</a>
+                    <a class="btn btn-lg btn-danger my-1 btn-custom" href="/logout">Logout</a>
                 <% } %>
             </div>
         </div>
@@ -61,7 +62,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
-        </script>
+    </script>
+    <!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="/javascripts/home.js" defer></script>
 </body>
 
 </html>
