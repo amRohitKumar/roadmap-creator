@@ -109,7 +109,7 @@
         </div>
     </div>
 <% }else{ %> 
-    <div class="container mt-3 col-8 offset-2 ">
+    <div class="container mt-3 ">
         <% reqSection.subsections.forEach((subsection, i) => { %>
             <div class="container section-class my-2">
                 <div id="sectionCount" class="rounded-3" >
@@ -122,12 +122,21 @@
                     <%= subsection.heading %>
                     <% } %> 
                 </div>
-                <div id="sectionoption" >
-                  <% if((reqSection.author).toString() == currentUser._id){ %> 
-                  <button style="display: flex;" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-three-dots-vertical"></i>
-                  </button>
-                  <ul class="dropdown-menu">
+                <div id="subsectionOptionDiv" >
+                  <% if((reqSection.author).toString() != currentUser._id){ %> 
+                    <a href="/publicss/<%=roadmapId%>/<%=reqSection._id%>/<%=subsection._id%>/statusChange" > 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill=" <%= finalArray[i].includes(currentUser._id)?"green":"red" %> " class="bi bi-check-lg" viewBox="0 0 16 16">
+                        <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
+                      </svg>
+                    </a> 
+                  <% }else{ %> 
+                    <!-- LOGIC TO SHOW NUMBER OF STUDENTS -->
+                    <div id="completeUserCount">
+                    <%= finalArray[i].length %> 
+                    </div>
+
+                    <button  id="sectionoption" class="btn btn-white btn-sm" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <ul class="dropdown-menu">
                     <li>
                         <button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal"data-bs-target="#_<%=subsection._id%>cinfo">
                             List
@@ -202,16 +211,7 @@
                     </div>
                   </div>
 
-                  <!-- LOGIC TO SHOW NUMBER OF STUDENTS -->
-                  <div id="completeUserCount">
-                    <%= finalArray[i].length %> 
-                  </div>
-                  <% }else{ %> 
-                    <a href="/publicss/<%=roadmapId%>/<%=reqSection._id%>/<%=subsection._id%>/statusChange" > 
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill=" <%= finalArray[i].includes(currentUser._id)?"green":"red" %> " class="bi bi-check-lg" viewBox="0 0 16 16">
-                        <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
-                      </svg>
-                    </a> 
+                  
                   <% } %> 
                 </div> 
             </div>
