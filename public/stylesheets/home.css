@@ -46,8 +46,13 @@ header{
     display: flex;
     width: 50%;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    margin-top: 5em;
+}
+
+.rightContainer:first-child{
+    margin-top: 5em;
 }
 
 .btn-custom{
@@ -110,7 +115,7 @@ header{
     
 }
 
-@media (max-width: 670px) {
+@media (max-width: 800px) {
     .backgroundShape{
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
         /* clip-path: polygon(0 1%, 100% 0, 100% 48%, 86% 70%, 67% 100%, 0 100%, 0% 70%, 0% 30%); */
