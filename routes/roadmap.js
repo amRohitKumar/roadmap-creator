@@ -88,8 +88,8 @@ router.post('/join/public', isLoggedIn, catchAsync(async (req, res) => {
     console.log(userId);
     const {uniqueId, password} = req.body;
     console.log(uniqueId, password);
-
-    const reqPublicRoadmap = await Publicroadmap.findById(uniqueId);
+    let tt = uniqueId.toString().trim();
+    const reqPublicRoadmap = await Publicroadmap.findById(tt);
     
     if(!reqPublicRoadmap){
         req.flash('error', "Word UniqueId or password ! Please try again .");
