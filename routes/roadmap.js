@@ -85,17 +85,19 @@ router.post('/public', isLoggedIn, catchAsync(async (req, res) => {
 router.post('/join/public', isLoggedIn, catchAsync(async (req, res) => {
     console.log("inside the join function");
     const userId = req.user._id;
+    console.log(userId);
     const {uniqueId, password} = req.body;
+    console.log(uniqueId, password);
 
     const reqPublicRoadmap = await Publicroadmap.findById(uniqueId);
-    console.log(reqPublicRoadmap);
-    const authorId = (reqPublicRoadmap.author._id).toString();
-
+    
     if(!reqPublicRoadmap){
         req.flash('error', "Word UniqueId or password ! Please try again .");
         res.redirect('/private');
     }
-    else if(authorId == req.user._id){
+    console.log(reqPublicRoadmap);
+    const authorId = (reqPublicRoadmap.author._id).toString();
+    if(authorId == req.user._id){
         req.flash('error', "You can't join your own roadmap !");
         return res.redirect('/private');
     }
