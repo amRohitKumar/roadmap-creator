@@ -90,21 +90,34 @@ router.post('/join/public', isLoggedIn, catchAsync(async (req, res) => {
     
     if(!reqPublicRoadmap){
         req.flash('error', "Word UniqueId or password ! Please try again .");
-        res.redirect('/private');
+        res.redirect('/public');
     }
     const authorId = (reqPublicRoadmap.author._id).toString();
     if(authorId == req.user._id){
         req.flash('error', "You can't join your own roadmap !");
-        return res.redirect('/private');
+        return res.redirect('/public');
     }
     if(reqPublicRoadmap.password === password){
         const reqUser = await User.findById(userId);
-        reqUser.publicroadmaps.push(reqPublicRoadmap);
-        await reqUser.save();
-        reqPublicRoadmap.participants.push(reqUser);
-        await reqPublicRoadmap.save();
-        req.flash('success', "Roadmap added !");
-        res.redirect('/public');
+        let result = true;
+        for(let r of reqUser.publicroadmaps){
+            if(r._id.toString() === finalRoadmapId){
+                result = false;
+                break;
+            }
+        }
+        if(!result){
+            req.flash('error', "You can't join one roadmap twice !");
+            res.redirect('/public');
+        }
+        else{
+            reqUser.publicroadmaps.push(reqPublicRoadmap);
+            await reqUser.save();
+            reqPublicRoadmap.participants.push(reqUser);
+            await reqPublicRoadmap.save();
+            req.flash('success', "Roadmap added !");
+            res.redirect('/public');
+        }
     }
     else{
         req.flash('error', "Wrong UniqueId or password ! Please try again .");
