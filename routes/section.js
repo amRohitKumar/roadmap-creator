@@ -54,7 +54,7 @@ router.delete('/private/:roadmapId/:sectionId/delete', isLoggedIn ,catchAsync( a
         const reqRoadmap = await Roadmap.updateOne({_id:roadmapId},{$pullAll:{"section":[sectionId]}})
         // console.log("inside delete", reqSubsection);
     }));
-    res.redirect(`/private/${roadmapId}`);
+    res.redirect(`/privaterp/${roadmapId}`);
 }))
 
 router.delete('/public/:roadmapId/:sectionId/delete', isLoggedIn, roadmapAuthor ,catchAsync( async (req, res) => {
@@ -64,7 +64,7 @@ router.delete('/public/:roadmapId/:sectionId/delete', isLoggedIn, roadmapAuthor 
         const reqRoadmap = await Publicroadmap.updateOne({_id:roadmapId},{$pullAll:{"section":[sectionId]}})
         // console.log("inside delete", reqSubsection);
     }));
-    res.redirect(`/public/${roadmapId}`);
+    res.redirect(`/publicrp/${roadmapId}`);
 }))
 
 module.exports = router;
